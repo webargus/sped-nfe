@@ -142,77 +142,177 @@ $nfe->tagide($std);
 $std = new \stdClass();
 //Razão Social ou nome do Contribuinte
 $std->xNome = 'Empresa teste';
+//Inscrição Estadual do Emitente
+//Informar somente os algarismos, sem os caracteres de
+//formatação (ponto, barra, hífen, etc.).
+//Na emissão de NF-e Avulsa pode ser informado o literal
+//“ISENTO” para os contribuintes do ICMS isentos de inscrição no
+//Cadastro de Contribuintes de ICMS.
 $std->IE = '6564344535';
-$std->CRT = 3;
-$std->CNPJ = '78767865000156';
+//Código de Regime Tributário
+//1=Simples Nacional;
+//2=Simples Nacional, excesso sublimite de receita bruta;
+//3=Regime Normal. (v2.0)
+$std->CRT = 1;
+//Informar o CNPJ do emitente. Na emissão de NF-e avulsa pelo
+//Fisco, as informações do remetente serão informadas neste
+//grupo. O CNPJ ou CPF deverão ser informados com os zeros
+//não significativos
+$std->CNPJ = '20711007000129';
+
 $nfe->tagemit($std);
 
 $std = new \stdClass();
-$std->xLgr = "Rua Teste";
-$std->nro = '203';
-$std->xBairro = 'Centro';
+// Logradouro
+$std->xLgr = "R COPACABANA";
+$std->nro = '1576';
+// Complemento
+//$std->xCpl = '';
+$std->xBairro = 'BOA VIAGEM';
+//Código do município
+//Utilizar a Tabela do IBGE (Anexo IX- Tabela de UF, Município e País)
 $std->cMun = '4317608';
-$std->xMun = 'Porto Alegre';
-$std->UF = 'RS';
-$std->CEP = '51030640';
+$std->xMun = 'Recife';
+$std->UF = 'PE';
+//Informar os zeros não significativos. (NT 2011/004)
+$std->CEP = '51030590';
+//Código do País
+//1058=Brasil
 $std->cPais = '1058';
+//Brasil ou BRASIL
 $std->xPais = 'BRASIL';
+
 $nfe->tagenderEmit($std);
 
-$std = new \stdClass();
-$std->xNome = 'Empresa destinatário teste';
-$std->indIEDest = 1;
-$std->IE = '6564344535';
-$std->CNPJ = '78767865000156';
-$nfe->tagdest($std);
+//$std = new \stdClass();
+//$std->xNome = 'Empresa destinatário teste';
+//$std->indIEDest = 1;
+//$std->IE = '6564344535';
+//$std->CNPJ = '78767865000156';
+//$nfe->tagdest($std);
 
 $std = new \stdClass();
-$std->xLgr = "Rua Teste";
-$std->nro = '203';
-$std->xBairro = 'Centro';
-$std->cMun = '4317608';
-$std->xMun = 'Porto Alegre';
-$std->UF = 'RS';
-$std->CEP = '51030640';
-$std->cPais = '1058';
-$std->xPais = 'BRASIL';
-$nfe->tagenderDest($std);
+//$std->xLgr = "Rua Teste";
+//$std->nro = '203';
+//$std->xBairro = 'Centro';
+//$std->cMun = '4317608';
+//$std->xMun = 'Porto Alegre';
+//$std->UF = 'RS';
+//$std->CEP = '51030640';
+//$std->cPais = '1058';
+//$std->xPais = 'BRASIL';
+//$nfe->tagenderDest($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Código do produto ou serviço
+//Preencher com CFOP, caso se trate de itens não relacionados
+//com mercadorias/produtos e que o contribuinte não possua
+//codificação própria. Formato: ”CFOP9999”
 $std->cProd = '0001';
+//Descrição do produto ou serviço
 $std->xProd = "Produto teste";
+//Código NCM com 8 dígitos
+//Obrigatória informação do NCM completo (8 dígitos).
+//Nota: Em caso de item de serviço ou item que não tenham
+//produto (ex. transferência de crédito, crédito do ativo
+//imobilizado, etc.), informar o valor 00 (dois zeros). (NT 2014/004)
 $std->NCM = '66554433';
+//Código Fiscal de Operações e Prestações
+//Utilizar Tabela de CFOP
 $std->CFOP = '5102';
+//Unidade Comercial
+//Informar a unidade de comercialização do produto
 $std->uCom = 'PÇ';
+//Quantidade Comercial
+//Informar a quantidade de comercialização do produto (v2.0)
 $std->qCom = '1.0000';
+//Valor Unitário de Comercialização
+//Informar o valor unitário de comercialização do produto, campo
+//meramente informativo, o contribuinte pode utilizar a precisão
+//desejada (0-10 decimais). Para efeitos de cálculo, o valor
+//unitário será obtido pela divisão do valor do produto pela
+//quantidade comercial. (v2.0)
 $std->vUnCom = '10.99';
+//Valor Total Bruto dos Produtos ou Serviços
 $std->vProd = '10.99';
+//Unidade Tributável
 $std->uTrib = 'PÇ';
+//Quantidade Tributável
+//Informar a quantidade de tributação do produto (v2.0)
 $std->qTrib = '1.0000';
+//Valor Unitário de tributação
+//Informar o valor unitário de tributação do produto, campo
+//meramente informativo, o contribuinte pode utilizar a precisão
+//desejada (0-10 decimais). Para efeitos de cálculo, o valor
+//unitário será obtido pela divisão do valor do produto pela
+//quantidade tributável (NT 2013/003)
 $std->vUnTrib = '10.99';
+//Indica se valor do Item (vProd) entra no valor total da NF-e (vProd)
+//0=Valor do item (vProd) não compõe o valor total da NF-e
+//1=Valor do item (vProd) compõe o valor total da NF-e (vProd) (v2.0)
 $std->indTot = 1;
+
 $nfe->tagprod($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Valor aproximado total de tributos federais, estaduais e municipais
 $std->vTotTrib = 10.99;
+
 $nfe->tagimposto($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Origem da mercadoria
+//0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8;
+//1 - Estrangeira - Importação direta, exceto a indicada no código
+//6;
+//2 - Estrangeira - Adquirida no mercado interno, exceto a
+//indicada no código 7;
+//3 - Nacional, mercadoria ou bem com Conteúdo de Importação
+//superior a 40% e inferior ou igual a 70%;
+//4 - Nacional, cuja produção tenha sido feita em conformidade
+//com os processos produtivos básicos de que tratam as
+//legislações citadas nos Ajustes;
+//5 - Nacional, mercadoria ou bem com Conteúdo de Importação
+//inferior ou igual a 40%;
+//6 - Estrangeira - Importação direta, sem similar nacional,
+//constante em lista da CAMEX e gás natural;
+//7 - Estrangeira - Adquirida no mercado interno, sem similar
+//nacional, constante lista CAMEX e gás natural.
+//8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%
 $std->orig = 0;
+//Tributação do ICMS = 00
+//00=Tributada integralmente
 $std->CST = '00';
+//Modalidade de determinação da BC do ICMS
+//0=Margem Valor Agregado (%);
+//1=Pauta (Valor);
+//2=Preço Tabelado Máx. (valor);
+//3=Valor da operação
 $std->modBC = 0;
+//Valor da BC do ICMS
 $std->vBC = 0.29;
+//Alíquota do imposto
 $std->pICMS = '18.0000';
+//Valor do ICMS
 $std->vICMS ='0.04';
+
 $nfe->tagICMS($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Código de Enquadramento Legal do IPI
+//Tabela a ser criada pela RFB, informar 999 enquanto a tabela não for criada
 $std->cEnq = '999';
+//Código da situação tributária do IPI
+//00=Entrada com recuperação de crédito
+//49=Outras entradas
+//50=Saída tributada
+//99=Outras saídas
 $std->CST = '50';
+
 $std->vIPI = 0;
 $std->vBC = 0;
 $std->pIPI = 0;
