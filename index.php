@@ -312,44 +312,86 @@ $std->cEnq = '999';
 //50=Saída tributada
 //99=Outras saídas
 $std->CST = '50';
-
+//Valor do IPI
 $std->vIPI = 0;
-$std->vBC = 0;
-$std->pIPI = 0;
+//Valor da BC do IPI
+//Informar os campos O10 e O13 se o cálculo do IPI for por alíquota
+$std->vBC = 0;          // campo O10
+//Alíquota do IPI
+$std->pIPI = 0;         // campo 013
+
 $nfe->tagIPI($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Código de Situação Tributária do PIS
+//04=Operação Tributável (tributação monofásica (alíquota zero));
+//05=Operação Tributável (Substituição Tributária);
+//06=Operação Tributável (alíquota zero);
+//07=Operação Isenta da Contribuição;
+//08=Operação Sem Incidência da Contribuição;
+//09=Operação com Suspensão da Contribuição
 $std->CST = '07';
+//Valor da Base de Cálculo do PIS
 $std->vBC = 0;
+//Alíquota do PIS (em percentual)
 $std->pPIS = 0;
+//Valor do PIS
 $std->vPIS = 0;
+
 $nfe->tagPIS($std);
 
 $std = new \stdClass();
 $std->item = 1;
+//Código de Situação Tributária da COFINS
+//04=Operação Tributável (tributação monofásica, alíquota zero);
+//05=Operação Tributável (Substituição Tributária);
+//06=Operação Tributável (alíquota zero);
+//07=Operação Isenta da Contribuição;
+//08=Operação Sem Incidência da Contribuição;
+//09=Operação com Suspensão da Contribuição;
+$std->CST = 7;
 $std->vCOFINS = 0;
 $std->vBC = 0;
 $std->pCOFINS = 0;
+
 $nfe->tagCOFINSST($std);
 
 $std = new \stdClass();
+//Base de Cálculo do ICMS
 $std->vBC = 0.20;
+//Valor Total do ICMS
 $std->vICMS = 0.04;
+//Valor Total do ICMS desonerado
 $std->vICMSDeson = 0.00;
+//Base de Cálculo do ICMS ST
 $std->vBCST = 0.00;
+//Valor Total do ICMS ST
 $std->vST = 0.00;
+//Valor Total dos produtos e serviços
 $std->vProd = 10.99;
+//Valor Total do Frete
 $std->vFrete = 0.00;
+//Valor Total do Seguro
 $std->vSeg = 0.00;
+//Valor Total do Desconto
 $std->vDesc = 0.00;
+//Valor Total do II
 $std->vII = 0.00;
+//Valor Total do IPI
 $std->vIPI = 0.00;
+//Valor do PIS
 $std->vPIS = 0.00;
+//Valor da COFINS
 $std->vCOFINS = 0.00;
+//Outras Despesas acessórias
 $std->vOutro = 0.00;
+//Valor Total da NF-e
+//Vide validação para este campo na regra de validação W16-xx
 $std->vNF = 11.03;
+//Valor aproximado total de tributos federais, estaduais e municipais (NT 2013/003)
 $std->vTotTrib = 0.00;
+
 $nfe->tagICMSTot($std);
 
 $std = new \stdClass();
